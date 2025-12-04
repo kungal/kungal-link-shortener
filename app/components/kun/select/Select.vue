@@ -154,7 +154,7 @@ const selectOption = (value: string | number, index: number) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .fadeUp-enter-active,
 .fadeUp-leave-active,
 .fadeDown-enter-active,

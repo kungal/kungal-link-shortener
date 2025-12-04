@@ -27,7 +27,8 @@
     "build:friend": "esno scripts/generateFriendSiteCapture.ts",
     "deploy:install": "esno scripts/deployInstall.ts",
     "deploy:build": "esno scripts/deployBuild.ts",
-    "seed:initial": "esno scripts/seedInitialData.ts"
+    "seed:initial": "esno scripts/seedInitialData.ts",
+    "seed:user": "esno scripts/seedUser.ts"
   },
   "prisma": {
     "schema": "./prisma/schema"

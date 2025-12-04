@@ -13,7 +13,7 @@ const props = defineProps<{
   />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 :deep(path) {
   color: inherit;
 }

@@ -57,7 +57,7 @@ const isWrapperMode = computed(() => !!slots.default)
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .info {
   color: var(--color-white);
   text-shadow:

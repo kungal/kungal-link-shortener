@@ -15,7 +15,7 @@
   </svg>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 :deep(path) {
   color: inherit;
 }

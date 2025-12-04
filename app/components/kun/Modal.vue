@@ -120,7 +120,7 @@ onUnmounted(() => {
   </Teleport>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .kun-modal-enter-active,
 .kun-modal-leave-active {
   transition: all 0.3s ease;

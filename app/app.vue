@@ -10,5 +10,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div></div>
+  <div class="bg-background text-foreground min-h-screen">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>

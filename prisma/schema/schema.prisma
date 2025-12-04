@@ -86,6 +86,7 @@ model short_link_visit {
 
     @@index([short_link_id])
     @@index([short_link_id, created])
+    @@index([short_link_id, ip])
 }
 
 model short_link_visit_bucket {

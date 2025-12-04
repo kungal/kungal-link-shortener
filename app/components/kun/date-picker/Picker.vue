@@ -350,7 +350,7 @@ const isInPreviewRange = (date: Date) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .fadeUp-enter-active,
 .fadeUp-leave-active,
 .fadeDown-enter-active,

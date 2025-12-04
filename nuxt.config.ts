@@ -32,6 +32,15 @@ export default defineNuxtConfig({
     }
   },
 
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    hid: 'nuxt-color-mode-script',
+    classPrefix: '',
+    classSuffix: '',
+    storage: 'cookie'
+  },
+
   icon: {
     mode: 'svg',
     clientBundle: {

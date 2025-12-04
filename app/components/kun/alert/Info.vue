@@ -94,17 +94,17 @@ onBeforeUnmount(() => {
   </Transition>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 :deep(.icon) {
   color: inherit;
 }
 
 .loli {
   filter: drop-shadow(2px 4px 3px var(--color-primary-300));
+}
 
-  span {
-    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-  }
+.loli span {
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0 50%);
 }
 
 .info {

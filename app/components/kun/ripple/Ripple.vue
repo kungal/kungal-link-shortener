@@ -20,7 +20,7 @@ defineProps<{
   />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .ripple {
   transform: scale(0);
   animation: ripple-animation 0.6s ease-out;
