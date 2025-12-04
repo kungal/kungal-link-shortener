@@ -1,7 +1,7 @@
-import { getSession } from '~~/server/utils/session'
+import { getUserSession } from '~~/server/utils/session'
 
 export default defineEventHandler(async (event) => {
-  const session = await getSession(event)
+  const session = await getUserSession(event)
   if (!session) return null
   const { user } = session
   return {

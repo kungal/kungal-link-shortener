@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import prisma from '~~/prisma/prisma'
 import { requireUser } from '~~/server/utils/session'
-import { parseBodyAs } from '~~/server/utils/parseZod'
+import { kunParsePostBody } from '~~/server/utils/parseZod'
 import { kunError } from '~~/server/utils/kunError'
 import { useRuntimeConfig } from '#imports'
 import { getRequestURL } from 'h3'
@@ -10,9 +10,11 @@ const schema = z.object({
   destination_url: z.string().url(),
   alias: z
     .string()
+    .trim()
     .min(4)
     .max(32)
     .regex(/^[a-zA-Z0-9-_]+$/)
+    .or(z.literal(''))
     .optional(),
   description: z.string().max(500).optional(),
   expires_at: z.string().datetime().optional().nullable(),
@@ -48,10 +50,16 @@ const ensureAlias = async (alias?: string) => {
 
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event)
-  const payload = await parseBodyAs(event, schema)
+  const payload = await kunParsePostBody(event, schema)
+  if (typeof payload === 'string') {
+    return kunError(event, payload, 422, 422)
+  }
   let alias: string
   try {
-    alias = await ensureAlias(payload.alias)
+    const aliasCandidate = payload.alias?.trim()
+      ? payload.alias.trim()
+      : undefined
+    alias = await ensureAlias(aliasCandidate)
   } catch (error) {
     return kunError(event, error instanceof Error ? error.message : '别名不可用', 400, 400)
   }

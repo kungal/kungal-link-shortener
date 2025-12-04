@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { getHeader } from 'h3'
 import prisma from '~~/prisma/prisma'
-import { parseBodyAs } from '~~/server/utils/parseZod'
+import { kunParsePostBody } from '~~/server/utils/parseZod'
 import { verifyPassword } from '~~/server/utils/password'
 import { kunError } from '~~/server/utils/kunError'
 import { createSession } from '~~/server/utils/session'
@@ -13,7 +13,11 @@ const schema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  const { username, password } = await parseBodyAs(event, schema)
+  const body = await kunParsePostBody(event, schema)
+  if (typeof body === 'string') {
+    return kunError(event, body, 422, 422)
+  }
+  const { username, password } = body
 
   const user = await prisma.user.findUnique({ where: { username } })
   if (!user) {

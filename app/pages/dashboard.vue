@@ -17,7 +17,9 @@ const form = reactive({
   description: '',
   max_visits: 0,
   expires_at: '',
-  forward_params: false
+  forward_params: false,
+  unlimited_visits: false,
+  never_expires: false
 })
 
 const feedback = ref<{ text: string; type: 'success' | 'error' } | null>(null)
@@ -53,11 +55,31 @@ const resetForm = () => {
   form.max_visits = 0
   form.expires_at = ''
   form.forward_params = false
+  form.unlimited_visits = false
+  form.never_expires = false
 }
 
 onMounted(async () => {
   await linkStore.fetchLinks()
 })
+
+watch(
+  () => form.unlimited_visits,
+  (value) => {
+    if (value) {
+      form.max_visits = 0
+    }
+  }
+)
+
+watch(
+  () => form.never_expires,
+  (value) => {
+    if (value) {
+      form.expires_at = ''
+    }
+  }
+)
 
 watch(
   () => [selectedAlias.value, statsRange.value],
@@ -81,14 +103,19 @@ const createLink = async () => {
   }
   creating.value = true
   try {
+    const maxVisits = form.unlimited_visits ? 0 : form.max_visits || 0
+    const expiresAt = form.never_expires
+      ? null
+      : form.expires_at
+        ? new Date(form.expires_at).toISOString()
+        : null
+
     await linkStore.createLink({
       destination_url: form.destination_url,
       alias: form.alias || undefined,
       description: form.description || undefined,
-      max_visits: form.max_visits || 0,
-      expires_at: form.expires_at
-        ? new Date(form.expires_at).toISOString()
-        : undefined,
+      max_visits: maxVisits,
+      expires_at: expiresAt,
       forward_params: form.forward_params
     })
     resetForm()
@@ -162,28 +189,44 @@ const formatTime = (value?: string | null) => {
             placeholder="https://example.com/landing"
             required
           />
-          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <KunInput
+                v-model="form.alias"
+                label="自定义别名"
+                placeholder="spring-campaign"
+              />
+              <KunInput
+                v-model.number="form.max_visits"
+                label="最大访问次数"
+                type="number"
+                min="0"
+                :disabled="form.unlimited_visits"
+              />
+            </div>
+            <div class="flex items-center justify-between rounded-2xl border border-default-200/70 bg-default-50 px-4 py-3 text-sm text-default-600">
+              <div>
+                <p class="font-medium text-default-700">允许无限访问</p>
+                <p class="text-xs text-default-500">启用后最大访问次数将被忽略</p>
+              </div>
+              <KunSwitch v-model="form.unlimited_visits" />
+            </div>
             <KunInput
-              v-model="form.alias"
-              label="自定义别名"
-              placeholder="spring-campaign"
+              v-model="form.expires_at"
+              label="失效时间"
+              type="datetime-local"
+              :disabled="form.never_expires"
             />
-            <KunInput
-              v-model.number="form.max_visits"
-              label="最大访问次数"
-              type="number"
-              min="0"
-            />
-          </div>
-          <KunInput
-            v-model="form.expires_at"
-            label="失效时间"
-            type="datetime-local"
-          />
-          <KunTextarea
-            v-model="form.description"
-            label="备注"
-            placeholder="用于内部对齐的说明"
+            <div class="flex items-center justify-between rounded-2xl border border-default-200/70 bg-default-50 px-4 py-3 text-sm text-default-600">
+              <div>
+                <p class="font-medium text-default-700">永久有效</p>
+                <p class="text-xs text-default-500">启用后短链不会因时间失效</p>
+              </div>
+              <KunSwitch v-model="form.never_expires" />
+            </div>
+            <KunTextarea
+              v-model="form.description"
+              label="备注"
+              placeholder="用于内部对齐的说明"
             :rows="2"
           />
           <KunCheckBox

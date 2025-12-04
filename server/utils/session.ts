@@ -44,7 +44,7 @@ export const getSessionToken = (event: H3Event) => {
   return getCookie(event, SESSION_COOKIE)
 }
 
-export const getSession = async (event: H3Event) => {
+export const getUserSession = async (event: H3Event) => {
   const token = getSessionToken(event)
   if (!token) return null
 
@@ -68,7 +68,7 @@ export const getSession = async (event: H3Event) => {
 }
 
 export const requireUser = async (event: H3Event) => {
-  const session = await getSession(event)
+  const session = await getUserSession(event)
   if (!session) {
     kunError(event, '未登录', 401, 401)
     throw new Error('Unauthorized')

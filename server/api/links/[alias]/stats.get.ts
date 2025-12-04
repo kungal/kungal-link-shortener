@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import prisma from '~~/prisma/prisma'
 import { requireUser } from '~~/server/utils/session'
-import { parseQueryAs } from '~~/server/utils/parseZod'
+import { kunParseGetQuery } from '~~/server/utils/parseZod'
 import { kunError } from '~~/server/utils/kunError'
 
 const querySchema = z.object({
@@ -15,7 +15,10 @@ export default defineEventHandler(async (event) => {
     return kunError(event, '缺少短链', 400, 400)
   }
 
-  const query = parseQueryAs(event, querySchema)
+  const query = kunParseGetQuery(event, querySchema)
+  if (typeof query === 'string') {
+    return kunError(event, query, 422, 422)
+  }
   const rangeDays = query.range ?? 7
   const rangeStart = new Date(Date.now() - rangeDays * 24 * 60 * 60 * 1000)
 
