@@ -1,6 +1,5 @@
 {
   "name": "kungal-link-shortener",
-  "type": "module",
   "private": true,
   "packageManager": "pnpm@10.17.1",
   "scripts": {
@@ -29,9 +28,6 @@
     "deploy:build": "esno scripts/deployBuild.ts",
     "seed:initial": "esno scripts/seedInitialData.ts",
     "seed:user": "esno scripts/seedUser.ts"
-  },
-  "prisma": {
-    "schema": "./prisma/schema"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.940.0",
