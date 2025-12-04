@@ -1,5 +1,6 @@
 {
   "name": "kungal-link-shortener",
+  "type": "module",
   "private": true,
   "packageManager": "pnpm@10.17.1",
   "scripts": {
@@ -29,6 +30,9 @@
     "seed:initial": "esno scripts/seedInitialData.ts",
     "seed:user": "esno scripts/seedUser.ts"
   },
+  "prisma": {
+    "schema": "./prisma/schema"
+  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.940.0",
     "@iconify/vue": "^5.0.0",
@@ -38,7 +42,7 @@
     "@nuxt/image": "1.11.0",
     "@nuxtjs/color-mode": "3.5.2",
     "@pinia/nuxt": "^0.11.2",
-    "@prisma/client": "6.16.1",
+    "@prisma/client": "6.7.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/vite": "^4.1.13",
     "@tiptap/extension-link": "^3.10.5",
@@ -66,7 +70,7 @@
     "nuxt-umami": "^3.2.0",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.5.0",
-    "prisma": "6.16.1",
+    "prisma": "6.7.0",
     "sharp": "0.32.6",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.13",
