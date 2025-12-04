@@ -10,7 +10,10 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
-      script: './.output/server/index.mjs'
+      script: './.output/server/index.mjs',
+      env: {
+        LINK_DATABASE_URL: process.env.LINK_DATABASE_URL
+      }
     }
   ]
 }
