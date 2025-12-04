@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     return kunError(event, '短链不存在', 404, 404)
   }
 
-  const [buckets, recent, uniqueVisitors] = await Promise.all([
+  const [buckets, recent, uniqueVisitorGroups] = await Promise.all([
     prisma.short_link_visit_bucket.findMany({
       where: { short_link_id: link.id, bucket_start: { gte: rangeStart } },
       orderBy: { bucket_start: 'asc' }
@@ -40,11 +40,13 @@ export default defineEventHandler(async (event) => {
       orderBy: { created: 'desc' },
       take: 10
     }),
-    prisma.short_link_visit.count({
+    prisma.short_link_visit.groupBy({
+      by: ['ip'],
       where: { short_link_id: link.id },
-      distinct: ['ip']
+      _count: { _all: true }
     })
   ])
+  const uniqueVisitors = uniqueVisitorGroups.length
 
   return {
     link: {

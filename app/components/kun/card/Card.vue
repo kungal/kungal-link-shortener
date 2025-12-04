@@ -17,8 +17,8 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   isPressable: false,
-  isHoverable: true,
-  isTransparent: true,
+  isHoverable: false,
+  isTransparent: false,
   bordered: true,
   className: '',
   contentClass: '',
