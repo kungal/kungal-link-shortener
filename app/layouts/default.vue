@@ -24,7 +24,7 @@ const logout = async () => {
       <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
         <div class="flex items-center gap-3 text-lg font-semibold">
           <Icon name="mdi:link-variant" class="text-primary-500 text-2xl" />
-          <span>Kun Link Shortener</span>
+          <span>KunGal Link Shortener</span>
         </div>
         <div class="flex items-center gap-4 text-sm text-default-500">
           <div class="flex items-center gap-2">

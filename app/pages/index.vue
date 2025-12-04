@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePersistUserStore } from '~/stores/user'
 
-useHead({ title: 'Kun Link Shortener · 登录' })
+useHead({ title: 'KunGal Link Shortener · 登录' })
 
 const store = usePersistUserStore()
 const router = useRouter()
@@ -41,7 +41,7 @@ const handleSubmit = async () => {
   <div class="flex justify-center">
     <KunCard class-name="w-full max-w-md gap-6 p-8">
       <div class="space-y-2">
-        <p class="text-default-500 text-sm">Kun Link Shortener</p>
+        <p class="text-default-500 text-sm">KunGal Link Shortener</p>
         <h1 class="text-2xl font-semibold">控制台登录</h1>
         <p class="text-default-500 text-sm">
           使用

@@ -5,7 +5,7 @@ import { usePersistUserStore } from '~/stores/user'
 
 definePageMeta({ middleware: 'auth' })
 
-useHead({ title: '控制台 · Kun Link Shortener' })
+useHead({ title: '控制台 · KunGal Link Shortener' })
 
 const linkStore = useLinkStore()
 const userStore = usePersistUserStore()
